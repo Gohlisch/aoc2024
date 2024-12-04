@@ -8,6 +8,6 @@ public class PartTwoSolver : ISolver
 {
     public string Solve(string input)
     {
-        return null;
+        return new XSearcher(new Grid(input)).Count().ToString();
     }
 }

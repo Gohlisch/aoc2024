@@ -18,16 +18,18 @@ public class Grid
 
     public char Get(int row, int col)
     {
-        while (row < 0)
+        row %= Rows;
+        col %= Cols;
+        
+        if (row < 0)
         {
             row += Rows;
         }
-        while (col < 0)
+        if (col < 0)
         {
             col += Cols;
         }
-        row %= Rows;
-        col %= Cols;
+        
         return _grid[row * Cols + col];
     }
 
