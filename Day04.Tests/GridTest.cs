@@ -7,64 +7,88 @@ namespace Day04.Tests;
 [TestSubject(typeof(Grid))]
 public class GridTest
 {
-    private Grid grid = new ("ABCD\n"
-                             + "EFGH\n"
-                             + "IJKL\n"
-                             + "MNOP\n"
-                             + "QRST\n"
-                             + "UVWX");
+    private readonly Grid _grid = new ("ABCD\n"
+                                       + "EFGH\n"
+                                       + "IJKL\n"
+                                       + "MNOP\n"
+                                       + "QRST\n"
+                                       + "UVWX");
 
     [Fact]
-    public void getsCharFromFirstRowFirstColumn()
+    public void GetsCharFromFirstRowFirstColumn()
     {
-        Assert.Equal('A', grid.get(0, 0));
+        Assert.Equal('A', _grid.Get(0, 0));
     }
 
     [Fact]
-    public void getCharFromFirstRowSecondColumn()
+    public void GetCharFromFirstRowSecondColumn()
     {
-        Assert.Equal('B', grid.get(0, 1));
+        Assert.Equal('B', _grid.Get(0, 1));
     }
 
     [Fact]
-    public void getsCharFromFirstRowLastColumn()
+    public void GetsCharFromFirstRowLastColumn()
     {
-        Assert.Equal('D', grid.get(0, 3));
+        Assert.Equal('D', _grid.Get(0, 3));
     }
     
     [Fact]
-    public void getsCharFromSecondRowFirstColumn()
+    public void GetsCharFromSecondRowFirstColumn()
     {
-        Assert.Equal('E', grid.get(1, 0));
+        Assert.Equal('E', _grid.Get(1, 0));
     }
 
     [Fact]
-    public void getCharFromSecondRowSecondColumn()
+    public void GetCharFromSecondRowSecondColumn()
     {
-        Assert.Equal('F', grid.get(1, 1));
+        Assert.Equal('F', _grid.Get(1, 1));
     }
 
     [Fact]
-    public void getsCharFromSecondRowLastColumn()
+    public void GetsCharFromSecondRowLastColumn()
     {
-        Assert.Equal('H', grid.get(1, 3));
+        Assert.Equal('H', _grid.Get(1, 3));
     }
 
     [Fact]
-    public void getsCharFromLastRowFirstColumn()
+    public void GetsCharFromLastRowFirstColumn()
     {
-        Assert.Equal('U', grid.get(5, 0));
+        Assert.Equal('U', _grid.Get(5, 0));
     }
 
     [Fact]
-    public void getsCharFromLastRowSecondColumn()
+    public void GetsCharFromLastRowSecondColumn()
     {
-        Assert.Equal('V', grid.get(5, 1));
+        Assert.Equal('V', _grid.Get(5, 1));
     }
 
     [Fact]
-    public void getsCharFromLastRowLastColumn()
+    public void GetsCharFromLastRowLastColumn()
     {
-        Assert.Equal('X', grid.get(5, 3));
+        Assert.Equal('X', _grid.Get(5, 3));
+    }
+    
+    [Fact]
+    public void GetsCharFromLastRowLastColumnByUsingNegativeCoordinates()
+    {
+        Assert.Equal('X', _grid.Get(-1, -1));
+    }
+    
+    [Fact]
+    public void GetsCharFromLastRowFirstColumnByUsingNegativeCoordinates()
+    {
+        Assert.Equal('U', _grid.Get(-1, 0));
+    }
+
+    [Fact]
+    public void GetsCharFromLastRowSecondColumnByUsingNegativeCoordinates()
+    {
+        Assert.Equal('V', _grid.Get(-1, -3));
+    }
+
+    [Fact]
+    public void GetsCharFromACentralPositionUsingNegativeCoordinates()
+    {
+        Assert.Equal('N', _grid.Get(-3, -3));
     }
 }
