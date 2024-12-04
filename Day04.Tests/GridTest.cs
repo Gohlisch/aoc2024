@@ -91,4 +91,16 @@ public class GridTest
     {
         Assert.Equal('N', _grid.Get(-3, -3));
     }
+    
+    [Fact]
+    public void GetsCharFromFirstRowFirstColumnUsingTooLargeCoordinates()
+    {
+        Assert.Equal('A', _grid.Get(6, 4));
+    }
+    
+    [Fact]
+    public void GetsCharFromLastRowLastColumnUsingTooLargeCoordinates()
+    {
+        Assert.Equal('X', _grid.Get(11, 7));
+    }
 }

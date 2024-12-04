@@ -6,7 +6,7 @@ public class PartOneSolver : ISolver
 {
     public string Solve(string input)
     {
-        return null;
+        return new WordSearcher(new Grid(input), "XMAS").Count().ToString();
     }
 
 }

@@ -2,28 +2,37 @@ namespace Day04;
 
 public class Grid
 {
-    private int _rows;
-    private int _cols;
+    public readonly int Rows;
+    public readonly int Cols;
     private readonly char[] _grid;
 
     public Grid(string from)
     {
-        var splits = from.Split("\n");
-        _rows = splits.Length;
-        _cols = splits[0].Length;
-        _grid = from.Replace("\n", "").ToCharArray();
+        var splits = from.Split(Environment.NewLine).Where(n => n.Length > 0).ToArray();
+        Rows = splits.Length;
+        Cols = splits[0].Length;
+        _grid = from.ReplaceLineEndings("").ToCharArray();
     }
+    
+     
 
     public char Get(int row, int col)
     {
         while (row < 0)
         {
-            row += _rows;
+            row += Rows;
         }
         while (col < 0)
         {
-            col += _cols;
+            col += Cols;
         }
-        return _grid[row * _cols + col];
+        row %= Rows;
+        col %= Cols;
+        return _grid[row * Cols + col];
+    }
+
+    public bool OutOfBounds(int row, int col)
+    {
+        return row < 0 || row >= Rows || col < 0 || col >= Cols;
     }
 }
