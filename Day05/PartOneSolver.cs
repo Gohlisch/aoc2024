@@ -9,44 +9,10 @@ public class PartOneSolver : ISolver
     {
         var (rules, updates) = PrintingInstructionParser.ParseRulesAndUpdates(input);
 
-        List<List<int>> validUpdates = new();
-        foreach (List<int> update in updates)
-        {
-            update.Reverse();
-            HashSet<int> shouldNotComePrior = new();
-            bool valid = true;
-            foreach (int page in update)
-            {
-                if (shouldNotComePrior.Contains(page))
-                {
-                    valid = false;
-                    break;
-                }
-
-                if(rules.ContainsKey(page))
-                {
-                    shouldNotComePrior.UnionWith(rules[page]);
-                }
-            }
-
-            if (valid)
-            {
-                validUpdates.Add(update);
-            }
-        }
+        var (valid, invalid) = PrintingInstructionParser.validAndInvalidUpdates(rules, updates);
         
-        return validUpdates.Select(GetFromCenter)
+        return valid.Select(list => list.CenterElement())
             .Sum()
             .ToString();
-    }
-
-    public int GetFromCenter(List<int> list)
-    {
-        if (list.Count % 2 == 0)
-        {
-            throw new Exception();
-        }
-
-        return list[list.Count / 2];
     }
 }

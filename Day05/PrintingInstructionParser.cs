@@ -32,4 +32,40 @@ public class PrintingInstructionParser
 
         return (rules, updates);
     }
+
+    public static (List<List<int>>, List<List<int>>) validAndInvalidUpdates(Dictionary<int, HashSet<int>> rules, List<List<int>> updates)
+    {
+        List<List<int>> validUpdates = new();
+        List<List<int>> invalidUpdates = new();
+        foreach (List<int> update in updates)
+        {
+            update.Reverse();
+            HashSet<int> shouldNotComePrior = new();
+            bool valid = true;
+            foreach (int page in update)
+            {
+                if (shouldNotComePrior.Contains(page))
+                {
+                    valid = false;
+                    break;
+                }
+
+                if(rules.ContainsKey(page))
+                {
+                    shouldNotComePrior.UnionWith(rules[page]);
+                }
+            }
+
+            if (valid)
+            {
+                validUpdates.Add(update);
+            }
+            else
+            {
+                invalidUpdates.Add(update);
+            }
+        }
+
+        return (validUpdates, invalidUpdates);
+    }
 }
