@@ -1,6 +1,6 @@
 namespace Day07;
 
-public class DesperatelyTryingCalculator(MutationFactory mutationFactory)
+public class DesperatelyTryingCalculator(MutationFactory<Operation> mutationFactory)
 {
     public long? TryToSolve(long desiredResult, long[] operands)
     {
@@ -15,9 +15,13 @@ public class DesperatelyTryingCalculator(MutationFactory mutationFactory)
                 {
                     result += operands[i + 1];
                 }
-                else
+                else if(operation == Operation.Multiplication)
                 {
                     result *= operands[i + 1];
+                }
+                else
+                {
+                    result = long.Parse(result + "" + operands[i + 1]);
                 }
             }
 
