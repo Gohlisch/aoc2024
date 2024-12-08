@@ -5,7 +5,7 @@ namespace Day08;
 public class AntiNodeFinder
 {
     private readonly Grid _antennas;
-    private readonly Grid _antinodes; 
+    private readonly Grid _antinodes;
 
     public AntiNodeFinder(Grid antennas)
     {
@@ -13,7 +13,7 @@ public class AntiNodeFinder
         _antinodes = new Grid(_antennas.Rows, _antennas.Cols, '.');
     }
 
-    public int CountUniqueAntinodes()
+    public int CountUniqueAntinodes(bool takeResonantHarmonicsIntoAccount)
     {
         foreach (List<(int, int)> locations in AntennaLocations().Select(typeAndLocations => typeAndLocations.Value))
         {
@@ -26,16 +26,31 @@ public class AntiNodeFinder
                     var (rowB, colB) = locationB;
 
                     var (rowDiff, colDiff) = (rowB - rowA, colB - colA);
-                    if (_antinodes.OutOfBounds(rowB + rowDiff, colB + colDiff))
+                    var (antinodeRow, antinodeCol) = (rowB, colB);
+
+                    do
                     {
-                     continue;   
-                    }
-                    
-                    _antinodes.Set(rowB + rowDiff, colB + colDiff, '#');
+                        antinodeRow += rowDiff;
+                        antinodeCol += colDiff;
+                        if (_antinodes.OutOfBounds(antinodeRow, antinodeCol))
+                        {
+                            break;
+                        }
+
+                        _antinodes.Set(antinodeRow, antinodeCol, '#');
+                    } while (takeResonantHarmonicsIntoAccount);
                 }
             }
         }
 
+        if (takeResonantHarmonicsIntoAccount)
+        {
+            foreach (var (row, col) in AntennaLocations().Select(typeAndLocations => typeAndLocations.Value).SelectMany(list => list))
+            {
+                _antinodes.Set(row, col, '#');
+            }
+        }
+        
         return _antinodes.FindAllLocations('#').Count;
     }
 
