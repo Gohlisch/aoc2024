@@ -41,13 +41,19 @@ static class DirectionMethods
 
 public class PatrolProtocol(Grid labMap)
 {
-    public int ExecuteProcol()
+    public int ExecuteProtocol()
     {
         var (guardRow, guardCol) = labMap.FindAllLocations('^').First();
         Direction guardDirection = Direction.North;
+        List<(int, int, Direction)> guardStates = new();
 
         do
         {
+            if (guardStates.Contains((guardRow, guardCol, guardDirection)))
+            {
+                throw new LoopDetectionException();
+            }            
+            guardStates.Add((guardRow, guardCol, guardDirection));
             labMap.Set(guardRow, guardCol, 'X');
             var (rowMovement, colMovement) = guardDirection.MoveForward();
             int nextRow = guardRow + rowMovement;
@@ -57,8 +63,9 @@ public class PatrolProtocol(Grid labMap)
             {
                 return labMap.FindAllLocations('X').Count;
             }
+            
 
-            if (labMap.Get(nextRow, nextCol) == '#')
+            if (labMap.Get(nextRow, nextCol) == '#' || labMap.Get(nextRow, nextCol) == 'O')
             {
                 guardDirection = guardDirection.TurnToRight();
             }

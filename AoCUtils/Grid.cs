@@ -80,4 +80,19 @@ public class Grid
     {
         return row < 0 || row >= Rows || col < 0 || col >= Cols;
     }
+
+    public Grid Clone()
+    {
+        var copy = new Grid(Rows, Cols, ' ');
+        
+        for (int row = 0; row < Rows; row++)
+        {
+            for (int col = 0; col < Cols; col++)
+            {
+                copy.Set(row, col, this.Get(row, col));
+            }
+        }
+
+        return copy;
+    }
 }

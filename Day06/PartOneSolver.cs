@@ -7,7 +7,7 @@ public class PartOneSolver : ISolver
 {
     public string Solve(string input)
     {
-        return new PatrolProtocol(new Grid(input)).ExecuteProcol().ToString();
+        return new PatrolProtocol(new Grid(input)).ExecuteProtocol().ToString();
     }
 
 }
