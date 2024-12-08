@@ -76,7 +76,7 @@ public class MutationFactory<T>(T[] variations)
                 {
                     patternGeneratingPointers[ptrIndex+i].Item1 = patternGeneratingPointers[ptrIndex].Item1+i;
                 }
-                // reset following pointers to the first variation so they have to go through all variations again
+                // reset all pointers to the first variation so they have to go through all variations again
                 for (var i = 0; i < patternGeneratingPointers.Length; i++)
                 {
                     patternGeneratingPointers[i].Item2 = 1;

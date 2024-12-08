@@ -1,4 +1,3 @@
-using Day04;
 using JetBrains.Annotations;
 using Xunit;
 
